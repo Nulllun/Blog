@@ -73,7 +73,7 @@ def register(request):
                 password = form.cleaned_data['password']
                 email = form.cleaned_data['email']
                 user = User.objects.create_user(username=username, email=email, password=password)
-                Profile.objects.create(user=user)
+                Profile.objects.create(user=user,sex='U',age=0,introduction='There is no introduction',have_edited=0)
                 return HttpResponseRedirect('/blog/')
             except IntegrityError:
                 error_message = 'The username/email have been used'
@@ -114,7 +114,10 @@ def logout(request):
 @login_required
 def view_profile(request, user_id):
     user = User.objects.get(pk=user_id)
-    profile = Profile.objects.get(user_id=user.id)
+    try:
+        profile = Profile.objects.get(user_id=user.id)
+    except ObjectDoesNotExist:
+        profile = Profile.objects.create(user=user,sex='U',age=0,introduction='There is no introduction',have_edited=0)
     days_joined = math.floor((timezone.now()- user.date_joined)/datetime.timedelta(days=1))
     context = {'user': user,'days_joined': days_joined,'profile': profile}
     return render(request, 'blog/profile.html', context)
