@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/blog/style.css' %}" />
+</head>
+<body>
+    <h1>{{ user.username }}'s Profile</h1><hr>
+    {% if not profile.have_edited %}
+        <p>This profile have not been edited!</p>
+    {% endif %}
+    <p>Days Joined: {{ days_joined }}</p>
+    <p>Sex: {{ profile.sex }}</p>
+    <p>Age: {{ profile.age }}</p>
+    <p style="width: 30%">Self-introduction: {{ profile.introduction }}</p><br>
+    {% if request.user.id == user.id %}
+        <a href="{% url 'blog:edit_profile' user.id %}">Edit</a><br>
+    {% endif %}
+    <a href="{% url 'blog:index' %}">Back to index</a><br>
+    {% if message %}
+        <br>
+        <strong>You cannot edit the profile of the others!</strong><br>
+    {% endif %}
+    {% if success %}
+        <strong>Updated succeed!</strong>
+    {% endif %}
+</body>
+</html>

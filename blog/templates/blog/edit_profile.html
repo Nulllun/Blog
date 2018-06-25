@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{ user.username }}, you are editing your profile</h1><hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Sex: <p>{{ form.sex }}<br>
+        <p>Age: </p>{{ form.age }}<br>
+        <p>Self-introduction: </p>{{ form.introduction }}<br>
+        <input type="submit" value="Submit" /><br>
+        <a href="{% url 'blog:index' %}">Back to index</a><br>
+    </form>
+</body>
+</html>

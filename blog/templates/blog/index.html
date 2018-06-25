@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/blog/style.css' %}" />
+
+</head>
+<body>
+    <h1>Post List</h1>
+    <hr>
+    {% if request.user.is_authenticated %}
+        <h2>Hello! {{ user.username }}</h2>
+        <a href="{% url 'blog:logout' %}">Logout</a><br>
+        <a href="{% url 'blog:create_post' %}">Create a new post</a><br>
+        <a href="{% url 'blog:view_profile' user.id %}">View My Profile</a><br>
+    {% else %}
+        <a href="{% url 'blog:login' %}">Login</a><br>
+        <a href="{% url 'blog:register' %}">Register</a>
+    {% endif %}
+
+    {% if post_list %}
+        <ul>
+        {% for post in post_list %}
+            <li class="post_list"><a href="{% url 'blog:detail' post.id %}">{{ post.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts are available.</p>
+    {% endif %}
+</body>
+</html>

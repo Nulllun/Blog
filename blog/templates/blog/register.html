@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/blog/style.css' %}" />
+</head>
+<body>
+    <form action="" method="post">
+        {{ error_message }}
+        {% csrf_token %}
+        <p>Username: </p>{{ form.username }}<br>
+        <p>Password: </p>{{ form.password }}<br>
+        <p>Email:</p>{{ form.email }}<br><br>
+        <input type="submit" value="Register" />
+    </form>
+    <a href="{% url 'blog:index' %}">Back to index</a><br>
+</body>
+</html>

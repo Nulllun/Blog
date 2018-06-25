@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/blog/style.css' %}" />
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Content:</p>{{ form.content }}<br>
+        <input type="submit" value="Submit" />
+    </form>
+    <a href="{% url 'blog:index' %}">Back to index</a><br>
+</body>
+</html>

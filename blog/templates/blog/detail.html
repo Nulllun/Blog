@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/blog/style.css' %}" />
+
+</head>
+<body>
+    <h1>{{ post.title }}, {{ post.author }}</h1>
+    <p style="font-size: 24px">{{ post.body }}</p>
+    {% if comment_list %}
+        <ol class="comment">
+            {% for c in comment_list %}
+                <li><a href="{% url 'blog:view_profile' c.author_id %}">{{ c.author }}</a>: {{ c.body }}</li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'blog:create_comment' post.id %}">Create comment</a><br>
+    {% endif %}
+    <a href="{% url 'blog:index' %}">Back to index</a>
+</body>
+</html>
